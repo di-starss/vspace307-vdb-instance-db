@@ -69,6 +69,7 @@ resource "openstack_compute_instance_v2" "instance" {
   }
 
   tags = [
+    var.project,
     "${var.project}_${var.env}_${var.service}",
     "${var.project}_${var.env}_${var.service}_${var.site}",
     "${var.project}_${var.env}_${var.service}_${var.role}"
