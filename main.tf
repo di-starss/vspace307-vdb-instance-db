@@ -1,6 +1,10 @@
-//
-// VDB-INSTANCE-DB
-//
+/**
+
+    $ VDB-INSTANCE-DB, v.3.0 2021/10/14 05:34 Exp @di $
+
+    role: [ master,slave,delay ], need for set tag's (generate dynamics inventory)
+
+**/
 
 terraform {
   required_providers {
@@ -21,6 +25,8 @@ variable "instance_name" {}
 variable "env" {}
 variable "project" {}
 variable "service" {}
+
+variable "role" {}
 
 variable "consul_host" {}
 variable "consul_port" {}
@@ -65,7 +71,7 @@ resource "openstack_compute_instance_v2" "instance" {
   tags = [
     "${var.project}_${var.env}_${var.service}",
     "${var.project}_${var.env}_${var.service}_${var.site}",
-    "${var.project}_${var.env}_${var.service}_${var.ansible_playbook}"
+    "${var.project}_${var.env}_${var.service}_${var.role}"
   ]
 
   block_device {
