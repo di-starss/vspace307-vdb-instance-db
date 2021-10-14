@@ -1,0 +1,36 @@
+#
+# MariaDB
+#
+
+[mysqld]
+user                    = mysql
+pid-file                = /run/mysqld/mysqld.pid
+socket                  = /run/mysqld/mysqld.sock
+port                    = 3306
+basedir                 = /usr
+datadir                 = {{ vdb_dir.data.Value }}
+tmpdir                  = /tmp
+lc-messages-dir         = /usr/share/mysql
+
+bind-address            = 0.0.0.0
+
+query_cache_limit       = 1M
+query_cache_size        = 16M
+
+log_error               = /var/log/mysql/error.log
+
+server-id               = {{ meta.json.meta.vdb_id }}
+log_bin                 = {{ vdb_log_bin.data.Value }}
+expire_logs_days        = 10
+
+max_connections         = 40960
+collation-server        = utf8_general_ci
+character-set-server    = utf8
+
+innodb_file_per_table   = on
+default-storage-engine  = innodb
+
+innodb_flush_log_at_trx_commit  = {{ vdb_innodb_flush_log_at_trx_commit.data.Value }}
+innodb_file_per_table           = {{ vdb_innodb_file_per_table.data.Value }}
+innodb_log_file_size            = {{ vdb_innodb_log_file_size.data.Value }}
+innodb_buffer_pool_size         = {{ vdb_innodb_buffer_pool_size.data.Value }}

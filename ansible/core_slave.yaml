@@ -1,0 +1,19 @@
+# vdb_master_position
+# vdb_master_file
+- name: "get k/v: vdb_master_position"
+  consul_kv:
+    key: "{{ meta.json.meta.project }}/{{ meta.json.meta.env }}/{{ meta.json.meta.service }}/vdb_master_position"
+    host: "{{ meta.json.meta.consul_host }}"
+    port: "{{ meta.json.meta.consul_port }}"
+    scheme: "{{ meta.json.meta.consul_schema }}"
+  register: vdb_master_position
+- debug: var=vdb_master_position.data.Value
+
+- name: "get k/v: vdb_master_file"
+  consul_kv:
+    key: "{{ meta.json.meta.project }}/{{ meta.json.meta.env }}/{{ meta.json.meta.service }}/vdb_master_file"
+    host: "{{ meta.json.meta.consul_host }}"
+    port: "{{ meta.json.meta.consul_port }}"
+    scheme: "{{ meta.json.meta.consul_schema }}"
+  register: vdb_master_file
+- debug: var=vdb_master_file.data.Value

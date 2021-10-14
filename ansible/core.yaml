@@ -1,0 +1,272 @@
+# META
+- name: "meta: read"
+  uri:
+    url: http://169.254.169.254/openstack/2020-10-14/meta_data.json
+    method: GET
+    return_content: yes
+    status_code: 200
+    body_format: json
+  register: meta
+  retries: 10
+  delay: 30
+- debug: var=meta
+
+# KV
+- name: "install: kv"
+  apt:
+    pkg:
+      - python3-consul
+    state: present
+
+- name: "install galaxy collection: community.general"
+  shell: ansible-galaxy collection install community.general
+
+# vdb_master_ip
+- name: "get k/v: vdb_master_ip"
+  consul_kv:
+    key: "{{ meta.json.meta.project }}/{{ meta.json.meta.env }}/{{ meta.json.meta.service }}/vdb_master_ip"
+    host: "{{ meta.json.meta.consul_host }}"
+    port: "{{ meta.json.meta.consul_port }}"
+    scheme: "{{ meta.json.meta.consul_schema }}"
+  register: vdb_master_ip
+- debug: var=vdb_master_ip.data.Value
+
+# vdb_root_password
+# vdb_mgmt_user
+# vdb_mgmt_password
+- name: "get k/v: vdb_root_password"
+  consul_kv:
+    key: "{{ meta.json.meta.project }}/{{ meta.json.meta.env }}/{{ meta.json.meta.service }}/vdb_root_password"
+    host: "{{ meta.json.meta.consul_host }}"
+    port: "{{ meta.json.meta.consul_port }}"
+    scheme: "{{ meta.json.meta.consul_schema }}"
+  register: vdb_root_password
+- debug: var=vdb_root_password.data.Value
+
+- name: "get k/v: vdb_mgmt_user"
+  consul_kv:
+    key: "{{ meta.json.meta.project }}/{{ meta.json.meta.env }}/{{ meta.json.meta.service }}/vdb_mgmt_user"
+    host: "{{ meta.json.meta.consul_host }}"
+    port: "{{ meta.json.meta.consul_port }}"
+    scheme: "{{ meta.json.meta.consul_schema }}"
+  register: vdb_mgmt_user
+- debug: var=vdb_mgmt_user.data.Value
+
+- name: "get k/v: vdb_mgmt_password"
+  consul_kv:
+    key: "{{ meta.json.meta.project }}/{{ meta.json.meta.env }}/{{ meta.json.meta.service }}/vdb_mgmt_password"
+    host: "{{ meta.json.meta.consul_host }}"
+    port: "{{ meta.json.meta.consul_port }}"
+    scheme: "{{ meta.json.meta.consul_schema }}"
+  register: vdb_mgmt_password
+- debug: var=vdb_mgmt_password.data.Value
+
+# vdb_replica_user
+# vdb_replica_password
+- name: "get k/v: vdb_replica_user"
+  consul_kv:
+    key: "{{ meta.json.meta.project }}/{{ meta.json.meta.env }}/{{ meta.json.meta.service }}/vdb_replica_user"
+    host: "{{ meta.json.meta.consul_host }}"
+    port: "{{ meta.json.meta.consul_port }}"
+    scheme: "{{ meta.json.meta.consul_schema }}"
+  register: vdb_replica_user
+- debug: var=vdb_replica_user.data.Value
+
+- name: "get k/v: vdb_replica_password"
+  consul_kv:
+    key: "{{ meta.json.meta.project }}/{{ meta.json.meta.env }}/{{ meta.json.meta.service }}/vdb_replica_password"
+    host: "{{ meta.json.meta.consul_host }}"
+    port: "{{ meta.json.meta.consul_port }}"
+    scheme: "{{ meta.json.meta.consul_schema }}"
+  register: vdb_replica_password
+- debug: var=vdb_replica_password.data.Value
+
+# vdb_sysbench
+# vdb_sysbench_user
+# vdb_sysbench_password
+# vdb_sysbench_db
+- name: "get k/v: vdb_sysbench"
+  consul_kv:
+    key: "{{ meta.json.meta.project }}/{{ meta.json.meta.env }}/{{ meta.json.meta.service }}/vdb_sysbench"
+    host: "{{ meta.json.meta.consul_host }}"
+    port: "{{ meta.json.meta.consul_port }}"
+    scheme: "{{ meta.json.meta.consul_schema }}"
+  register: vdb_sysbench
+- debug: var=vdb_sysbench.data.Value
+
+- name: "get k/v: vdb_sysbench_user"
+  consul_kv:
+    key: "{{ meta.json.meta.project }}/{{ meta.json.meta.env }}/{{ meta.json.meta.service }}/vdb_sysbench_user"
+    host: "{{ meta.json.meta.consul_host }}"
+    port: "{{ meta.json.meta.consul_port }}"
+    scheme: "{{ meta.json.meta.consul_schema }}"
+  register: vdb_sysbench_user
+- debug: var=vdb_sysbench_user.data.Value
+
+- name: "get k/v: vdb_sysbench_password"
+  consul_kv:
+    key: "{{ meta.json.meta.project }}/{{ meta.json.meta.env }}/{{ meta.json.meta.service }}/vdb_sysbench_password"
+    host: "{{ meta.json.meta.consul_host }}"
+    port: "{{ meta.json.meta.consul_port }}"
+    scheme: "{{ meta.json.meta.consul_schema }}"
+  register: vdb_sysbench_password
+- debug: var=vdb_sysbench_password.data.Value
+
+- name: "get k/v: vdb_sysbench_db"
+  consul_kv:
+    key: "{{ meta.json.meta.project }}/{{ meta.json.meta.env }}/{{ meta.json.meta.service }}/vdb_sysbench_db"
+    host: "{{ meta.json.meta.consul_host }}"
+    port: "{{ meta.json.meta.consul_port }}"
+    scheme: "{{ meta.json.meta.consul_schema }}"
+  register: vdb_sysbench_db
+- debug: var=vdb_sysbench_db.data.Value
+
+# vdb_data_dev
+# vdb_data_dir
+- name: "get k/v: vdb_data_dev"
+  consul_kv:
+    key: "{{ meta.json.meta.project }}/{{ meta.json.meta.env }}/{{ meta.json.meta.service }}/vdb_data_dev"
+    host: "{{ meta.json.meta.consul_host }}"
+    port: "{{ meta.json.meta.consul_port }}"
+    scheme: "{{ meta.json.meta.consul_schema }}"
+  register: vdb_data_dev
+- debug: var=vdb_data_dev.data.Value
+
+- name: "get k/v: vdb_data_dir"
+  consul_kv:
+    key: "{{ meta.json.meta.project }}/{{ meta.json.meta.env }}/{{ meta.json.meta.service }}/vdb_data_dir"
+    host: "{{ meta.json.meta.consul_host }}"
+    port: "{{ meta.json.meta.consul_port }}"
+    scheme: "{{ meta.json.meta.consul_schema }}"
+  register: vdb_data_dir
+- debug: var=vdb_data_dir.data.Value
+
+# vdb_dir
+# vdb_log
+# vdb_log_bin
+# vdb_log_relay
+- name: "get k/v: vdb_dir"
+  consul_kv:
+    key: "{{ meta.json.meta.project }}/{{ meta.json.meta.env }}/{{ meta.json.meta.service }}/vdb_dir"
+    host: "{{ meta.json.meta.consul_host }}"
+    port: "{{ meta.json.meta.consul_port }}"
+    scheme: "{{ meta.json.meta.consul_schema }}"
+  register: vdb_dir
+- debug: var=vdb_dir.data.Value
+
+- name: "get k/v: vdb_log"
+  consul_kv:
+    key: "{{ meta.json.meta.project }}/{{ meta.json.meta.env }}/{{ meta.json.meta.service }}/vdb_log"
+    host: "{{ meta.json.meta.consul_host }}"
+    port: "{{ meta.json.meta.consul_port }}"
+    scheme: "{{ meta.json.meta.consul_schema }}"
+  register: vdb_log
+- debug: var=vdb_log.data.Value
+
+- name: "get k/v: vdb_log_bin"
+  consul_kv:
+    key: "{{ meta.json.meta.project }}/{{ meta.json.meta.env }}/{{ meta.json.meta.service }}/vdb_log_bin"
+    host: "{{ meta.json.meta.consul_host }}"
+    port: "{{ meta.json.meta.consul_port }}"
+    scheme: "{{ meta.json.meta.consul_schema }}"
+  register: vdb_log_bin
+- debug: var=vdb_log_bin.data.Value
+
+- name: "get k/v: vdb_log_relay"
+  consul_kv:
+    key: "{{ meta.json.meta.project }}/{{ meta.json.meta.env }}/{{ meta.json.meta.service }}/vdb_log_relay"
+    host: "{{ meta.json.meta.consul_host }}"
+    port: "{{ meta.json.meta.consul_port }}"
+    scheme: "{{ meta.json.meta.consul_schema }}"
+  register: vdb_log_relay
+- debug: var=vdb_log_relay.data.Value
+
+# qa_url
+# qu_uuid
+- name: "get k/v: qa_url"
+  consul_kv:
+    key: "{{ meta.json.meta.project }}/{{ meta.json.meta.env }}/{{ meta.json.meta.service }}/qa_url"
+    host: "{{ meta.json.meta.consul_host }}"
+    port: "{{ meta.json.meta.consul_port }}"
+    scheme: "{{ meta.json.meta.consul_schema }}"
+  register: qa_url
+- debug: var=qa_url.data.Value
+
+- name: "get k/v: qu_uuid"
+  consul_kv:
+    key: "{{ meta.json.meta.project }}/{{ meta.json.meta.env }}/{{ meta.json.meta.service }}/qu_uuid"
+    host: "{{ meta.json.meta.consul_host }}"
+    port: "{{ meta.json.meta.consul_port }}"
+    scheme: "{{ meta.json.meta.consul_schema }}"
+  register: qu_uuid
+- debug: var=qu_uuid.data.Value
+
+# vdb_innodb_flush_log_at_trx_commit
+# vdb_innodb_file_per_table
+# vdb_innodb_log_file_size
+# vdb_innodb_buffer_pool_size
+- name: "get k/v: vdb_innodb_flush_log_at_trx_commit"
+  consul_kv:
+    key: "{{ meta.json.meta.project }}/{{ meta.json.meta.env }}/{{ meta.json.meta.service }}/vdb_innodb_flush_log_at_trx_commit"
+    host: "{{ meta.json.meta.consul_host }}"
+    port: "{{ meta.json.meta.consul_port }}"
+    scheme: "{{ meta.json.meta.consul_schema }}"
+  register: vdb_innodb_flush_log_at_trx_commit
+- debug: var=vdb_innodb_flush_log_at_trx_commit.data.Value
+
+- name: "get k/v: vdb_innodb_file_per_table"
+  consul_kv:
+    key: "{{ meta.json.meta.project }}/{{ meta.json.meta.env }}/{{ meta.json.meta.service }}/vdb_innodb_file_per_table"
+    host: "{{ meta.json.meta.consul_host }}"
+    port: "{{ meta.json.meta.consul_port }}"
+    scheme: "{{ meta.json.meta.consul_schema }}"
+  register: vdb_innodb_file_per_table
+- debug: var=vdb_innodb_file_per_table.data.Value
+
+- name: "get k/v: vdb_innodb_log_file_size"
+  consul_kv:
+    key: "{{ meta.json.meta.project }}/{{ meta.json.meta.env }}/{{ meta.json.meta.service }}/vdb_innodb_log_file_size"
+    host: "{{ meta.json.meta.consul_host }}"
+    port: "{{ meta.json.meta.consul_port }}"
+    scheme: "{{ meta.json.meta.consul_schema }}"
+  register: vdb_innodb_log_file_size
+- debug: var=vdb_innodb_log_file_size.data.Value
+
+- name: "get k/v: vdb_innodb_buffer_pool_size"
+  consul_kv:
+    key: "{{ meta.json.meta.project }}/{{ meta.json.meta.env }}/{{ meta.json.meta.service }}/vdb_innodb_buffer_pool_size"
+    host: "{{ meta.json.meta.consul_host }}"
+    port: "{{ meta.json.meta.consul_port }}"
+    scheme: "{{ meta.json.meta.consul_schema }}"
+  register: vdb_innodb_buffer_pool_size
+- debug: var=vdb_innodb_buffer_pool_size.data.Value
+
+# vdb_meta
+# vdb_meta_data_url
+# vdb_meta_client_url
+- name: "get k/v: vdb_meta"
+  consul_kv:
+    key: "{{ meta.json.meta.project }}/{{ meta.json.meta.env }}/{{ meta.json.meta.service }}/vdb_meta"
+    host: "{{ meta.json.meta.consul_host }}"
+    port: "{{ meta.json.meta.consul_port }}"
+    scheme: "{{ meta.json.meta.consul_schema }}"
+  register: vdb_meta
+- debug: var=vdb_meta.data.Value
+
+- name: "get k/v: vdb_meta_data_url"
+  consul_kv:
+    key: "{{ meta.json.meta.project }}/{{ meta.json.meta.env }}/{{ meta.json.meta.service }}/vdb_meta_data_url"
+    host: "{{ meta.json.meta.consul_host }}"
+    port: "{{ meta.json.meta.consul_port }}"
+    scheme: "{{ meta.json.meta.consul_schema }}"
+  register: vdb_meta_data_url
+- debug: var=vdb_meta_data_url.data.Value
+
+- name: "get k/v: vdb_meta_client_url"
+  consul_kv:
+    key: "{{ meta.json.meta.project }}/{{ meta.json.meta.env }}/{{ meta.json.meta.service }}/vdb_meta_client_url"
+    host: "{{ meta.json.meta.consul_host }}"
+    port: "{{ meta.json.meta.consul_port }}"
+    scheme: "{{ meta.json.meta.consul_schema }}"
+  register: vdb_meta_client_url
+- debug: var=vdb_meta_client_url.data.Value
